@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jannalyn | Bookkeeping Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:       #1a1a2e;
+    --slate:     #3d3d5c;
+    --mid:       #7a7a99;
+    --soft:      #c8c8d8;
+    --paper:     #f7f6f2;
+    --white:     #ffffff;
+    --accent:    #4a6fa5;
+    --accent2:   #2ecc8a;
+    --rule:      #e2e1dc;
+    --tag-bg:    #eef2f8;
+    --tag-txt:   #4a6fa5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: var(--white);
+    padding: 64px 0 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(74,111,165,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+  }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .tagline {
+    font-size: 16px;
+    color: rgba(255,255,255,0.62);
+    max-width: 480px;
+    font-weight: 300;
+    margin-bottom: 28px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+  .meta-row span { display: flex; align-items: center; gap: 6px; }
+  .meta-row svg { opacity: 0.7; }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 40px 0;
+  }
+  .about p {
+    color: var(--slate);
+    max-width: 680px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ── SECTION ── */
+  .section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  /* ── SKILL CARDS ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 28px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(26,26,46,0.08);
+    transform: translateY(-2px);
+  }
+  .card-accent {
+    width: 36px; height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    margin-bottom: 16px;
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: 13.5px;
+    color: var(--slate);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-txt);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── RECONCILIATION SHOWCASE ── */
+  .recon-block {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .recon-header {
+    background: var(--ink);
+    color: var(--white);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .recon-header .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); }
+  .recon-body { padding: 28px; }
+  .recon-body h4 { font-size: 13px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+
+  .ledger { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 24px; }
+  .ledger th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mid);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0 12px 10px 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ledger td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--slate);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .ledger tr:last-child td { border-bottom: none; }
+  .ledger .label-col { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink); }
+  .amount-pos { color: #2ecc8a; }
+  .amount-neg { color: #e05c5c; }
+
+  .balance-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ink);
+    color: var(--white);
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .balance-row .bal-label { color: rgba(255,255,255,0.6); }
+  .balance-row .bal-val { font-size: 17px; font-weight: 500; color: var(--accent2); }
+
+  /* ── TOOLS ── */
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .tool-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--slate);
+    transition: border-color 0.2s;
+  }
+  .tool-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .tool-icon { font-size: 16px; }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--ink);
+    color: var(--white);
+    padding: 56px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(46,204,138,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-section h2 { color: var(--white); margin-bottom: 8px; }
+  .contact-section p { color: rgba(255,255,255,0.55); margin-bottom: 28px; max-width: 460px; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .contact-btn:hover { opacity: 0.85; }
+  .btn-primary { background: var(--accent2); color: var(--ink); }
+  .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #14141f;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: 1fr; }
+    .meta-row { gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <p class="eyebrow">Bookkeeping Portfolio</p>
+    <h1>Jannalyn<br/>Gurrea</h1>
+    <p class="tagline">Finance professional with 15+ years in automotive dealership operations, skilled in QuickBooks Online and full-cycle bookkeeping.</p>
+    <div class="meta-row">
+      <span>
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cagayan de Oro, Philippines
+      </span>
+      <span>
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Automotive Finance · 15+ Years
+      </span>
+      <span>
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        QuickBooks Online Certified Practice
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<div class="about">
+  <div class="container">
+    <p>I bring over 15 years of hands-on experience in financial operations — managing accounts payable, accounts receivable, billing, collections, and bank reconciliation within the automotive dealership industry. I am actively building my QuickBooks Online portfolio through structured practice with mock companies, and I am available for AP/AR Specialist, Billing Specialist, and Accounting Assistant roles, both onsite and remote.</p>
+  </div>
+</div>
+
+<!-- SKILLS SECTION -->
+<div class="section">
+  <div class="container">
+    <p class="section-label">Core Competencies</p>
+    <h2>Bookkeeping Skills</h2>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Bank Reconciliation</h3>
+        <p>Reconciled mock bank statements in QuickBooks Online using a practice company (AllCart), matching cleared transactions, identifying outstanding checks, and resolving discrepancies to achieve a zero-difference reconciliation.</p>
+        <div class="tags">
+          <span class="tag">QBO Reconcile</span>
+          <span class="tag">PhilBank Statement</span>
+          <span class="tag">Outstanding Checks</span>
+          <span class="tag">Deposits in Transit</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Accounts Payable &amp; Receivable</h3>
+        <p>Managed full AP/AR cycles including entering vendor bills, processing payments, creating customer invoices, and recording receive payments against open invoices. Experience spans dealership-scale transaction volumes.</p>
+        <div class="tags">
+          <span class="tag">Enter Bills</span>
+          <span class="tag">Pay Bills</span>
+          <span class="tag">Invoices</span>
+          <span class="tag">Receive Payments</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Invoicing &amp; Billing</h3>
+        <p>Created and managed customer invoices in QBO, applying correct service items, rates, and payment terms. Processed sales receipts for immediate payments and tracked outstanding balances through the A/R Aging report.</p>
+        <div class="tags">
+          <span class="tag">Sales Receipts</span>
+          <span class="tag">A/R Aging</span>
+          <span class="tag">Payment Terms</span>
+          <span class="tag">Collections</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Chart of Accounts Setup</h3>
+        <p>Built a structured Chart of Accounts in QBO for a mock retail company, categorizing assets, liabilities, equity, income, and expense accounts appropriate to the business type and reporting requirements.</p>
+        <div class="tags">
+          <span class="tag">COA Setup</span>
+          <span class="tag">Account Types</span>
+          <span class="tag">Detail Types</span>
+          <span class="tag">Opening Balances</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- RECONCILIATION SHOWCASE -->
+<div class="section">
+  <div class="container">
+    <p class="section-label">Practice Work Sample</p>
+    <h2>Bank Reconciliation — AllCart</h2>
+    <div class="recon-block">
+      <div class="recon-header">
+        <div class="dot"></div>
+        PhilBank Checking · May 2025 Statement · QuickBooks Online
+      </div>
+      <div class="recon-body">
+        <h4>Reconciliation Summary</h4>
+        <table class="ledger">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Reference</th>
+              <th>Amount (PHP)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label-col">Opening Bank Balance</td>
+              <td>May 1, 2025</td>
+              <td class="amount-pos">₱ 150,000.00</td>
+            </tr>
+            <tr>
+              <td class="label-col">Total Deposits Cleared</td>
+              <td>DEP-0501 – DEP-0528</td>
+              <td class="amount-pos">₱ 98,500.00</td>
+            </tr>
+            <tr>
+              <td class="label-col">Total Checks Cleared</td>
+              <td>CHK-0501 – CHK-0535</td>
+              <td class="amount-neg">− ₱ 74,250.00</td>
+            </tr>
+            <tr>
+              <td class="label-col">Closing Bank Balance</td>
+              <td>May 31, 2025</td>
+              <td class="amount-pos">₱ 174,250.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="balance-row">
+          <span class="bal-label">Difference (Reconciled)</span>
+          <span class="bal-val">₱ 0.00 ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="section">
+  <div class="container">
+    <p class="section-label">Software &amp; Tools</p>
+    <h2>What I Work With</h2>
+    <div class="tools-grid">
+      <div class="tool-pill"><span class="tool-icon">📊</span> QuickBooks Online (QBO)</div>
+      <div class="tool-pill"><span class="tool-icon">📋</span> Microsoft Excel</div>
+      <div class="tool-pill"><span class="tool-icon">📁</span> Google Sheets</div>
+      <div class="tool-pill"><span class="tool-icon">🏦</span> Bank Statement Reconciliation</div>
+      <div class="tool-pill"><span class="tool-icon">🧾</span> Invoicing &amp; Billing Systems</div>
+      <div class="tool-pill"><span class="tool-icon">💻</span> Google Workspace</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="container">
+    <p class="section-label" style="color: var(--accent2);">Open to Opportunities</p>
+    <h2>Let's Work Together</h2>
+    <p>Available for AP/AR Specialist, Billing Specialist, and Accounting Assistant roles — onsite in Cagayan de Oro or remote.</p>
+    <div class="contact-links">
+      <a href="mailto:jannalyngurrea@gmail.com" class="contact-btn btn-primary">✉ Send an Email</a>
+      <a href="https://www.linkedin.com/in/jannalynrgurrea" class="contact-btn btn-outline">💼 LinkedIn Profile</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Jannalyn Gurrea · Bookkeeping Portfolio · Built with QuickBooks Online practice
+</footer>
+
+</body>
+</html>
